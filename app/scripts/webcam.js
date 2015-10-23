@@ -35,7 +35,8 @@ angular.module('webcam', [])
         onStream: '&',
         onStreaming: '&',
         placeholder: '=',
-        config: '=channel'
+        config: '=channel',
+        showVideo: '@'
       },
       link: function postLink($scope, element) {
         var videoElem = null,
@@ -100,7 +101,7 @@ angular.module('webcam', [])
           videoElem = document.createElement('video');
           videoElem.setAttribute('class', 'webcam-live');
           videoElem.setAttribute('autoplay', '');
-          element.append(videoElem);
+          if ($scope.showVideo == 1) element.append(videoElem);
 
           if ($scope.placeholder) {
             placeholder = document.createElement('img');
