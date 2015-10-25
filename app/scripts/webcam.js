@@ -23,6 +23,21 @@
 })();
 
 angular.module('webcam', [])
+  .service('getVideoData_', function() {
+
+    function getVideoData_(_video, x, y, w, h) {
+      var hiddenCanvas = document.createElement('canvas');
+      hiddenCanvas.width = _video.width;
+      hiddenCanvas.height = _video.height;
+      var ctx = hiddenCanvas.getContext('2d');
+      ctx.drawImage(_video, 0, 0, _video.width, _video.height);
+      return ctx.getImageData(x, y, w, h);
+    };
+
+
+    return getVideoData_;
+  })
+
   .directive('webcam', function () {
     return {
       template: '<div class="webcam" ng-transclude></div>',
@@ -101,7 +116,8 @@ angular.module('webcam', [])
           videoElem = document.createElement('video');
           videoElem.setAttribute('class', 'webcam-live');
           videoElem.setAttribute('autoplay', '');
-          if ($scope.showVideo == 1) element.append(videoElem);
+          if ($scope.showVideo == 1)
+            element.append(videoElem);
 
           if ($scope.placeholder) {
             placeholder = document.createElement('img');
